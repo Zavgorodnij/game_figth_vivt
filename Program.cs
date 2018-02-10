@@ -15,6 +15,7 @@ namespace Wars_to_characters
         static int Event_backend2;
         static int Event_figth;
         static int mode = 0;
+        static float stamina_edit = 1;
         //Характеристика персонажа №1
         static float force1 = 0;
         static float agility1 = 0;
@@ -74,20 +75,20 @@ namespace Wars_to_characters
                     {
                         Console.WriteLine(name1 + " даёт в половину силы пиздюлей " + name2);
                         life2 = life2 - (force1 / 2);
-                        stamina1 = stamina1 - (1 / 2);
+                        stamina1 = stamina1 - (stamina_edit/2);
                     }
                 }
                 //Промахивается
                 if (Event_backend1==3)
                 {
                     Console.WriteLine(name1 + " не даёт пиздюлей, так как промахнулся " + name2);
-                    stamina1 = stamina1 + 1;
+                    stamina1 = stamina1 + stamina_edit;
                 }
             }
             //Блокирует
             if (Event_fronted1==2)
             {
-                if(stamina2<=0)
+                if(stamina1<=0)
                 {
                     inactivity1();
                 }
@@ -125,7 +126,7 @@ namespace Wars_to_characters
                     {
                         Console.WriteLine(name2 + " даёт по полной пиздюлей " + name1);
                         life1 = life1 - force2;
-                        stamina2 = stamina2 - 1;
+                        stamina2 = stamina2 - stamina_edit;
                     }
 
                 }
@@ -140,20 +141,28 @@ namespace Wars_to_characters
                     {
                         Console.WriteLine(name2 + " даёт в половину силы пиздюлей" + name1);
                         life1 = life1 - (force2 / 2);
-                        stamina2 = stamina2 - (1 / 2);
+                        stamina2 = stamina2 - (stamina_edit / 2);
                     }
                 }
                 //Промахивается
                 if (Event_backend2 == 3)
                 {
                     Console.WriteLine(name2 + " не даёт пиздюлей, так как промахнулся " + name1);
-                    stamina2 = stamina2 + 1;
+                    stamina2 = stamina2 + stamina_edit;
                 }
             }
             //Блокирует
             if (Event_fronted2 == 2)
             {
-                block2();
+                if (stamina2 <= 0)
+                {
+                    inactivity2();
+                }
+                else
+                {
+                    block2();
+                }
+                
             }
             //Не активен
             if (Event_fronted2==3)
@@ -164,13 +173,13 @@ namespace Wars_to_characters
             //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
             public static void block1()
         {
-            stamina1 = stamina1 - (1 / 2);
+            stamina1 = stamina1 - (stamina_edit / 2);
             Console.WriteLine(name1+" блокирует удар");
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
-            stamina2 = stamina2 - (1 / 2);
+            stamina2 = stamina2 - (stamina_edit / 2);
             Console.WriteLine(name2+" блокирует удар");
         }
 
@@ -180,7 +189,7 @@ namespace Wars_to_characters
             if (stamina1_limit>=stamina1)
             {
                 Console.WriteLine(name1+ " прилёг отдохнуть во время боя!");
-                stamina1 = stamina1 + 1;
+                stamina1 = stamina1 + stamina_edit;
             }
         }
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
@@ -366,3 +375,5 @@ namespace Wars_to_characters
         }
     }
 }
+
+
