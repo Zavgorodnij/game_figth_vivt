@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,7 @@ namespace Wars_to_characters
         static int Event_fronted;
         static int Event_backend;
         static int Event_figth;
+        static int mode = 0;
         //Характеристика персонажа №1
         static float force1 = 0;
         static float agility1 = 0;
@@ -31,9 +32,10 @@ namespace Wars_to_characters
         {
             input_character1();
             input_character2();
+            game_mode();
             fight();
             end();
-            
+
         }
         //Метод атаки первого бойца
         public static void hit1()
@@ -89,13 +91,17 @@ namespace Wars_to_characters
                     Console.WriteLine("Первый персонаж, отдыхает!");
                     inactivity1();
                 }
-                block1();
+                else
+                {
+                    block1();
+                }
+                
             }
             else
             {
                 inactivity1();
             }
-
+            status();
         }
         //Метод атаки второго бойца
         public static void hit2()
@@ -115,7 +121,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine("Первый персонаж, атакует в полную силу!");
+                        Console.WriteLine("Второй персонаж, атакует в полную силу!");
                         life1 = life1 - force2;
                         stamina2 = stamina2 - 1;
                     }
@@ -145,11 +151,12 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine("Первый персонаж, промахивается!");
+                        Console.WriteLine("Второй персонаж, промахивается!");
                         stamina2 = stamina2 - 1;
                     }
                     
                 }
+                
             }
             //Блокирует
             if (Event_fronted==2)
@@ -167,6 +174,7 @@ namespace Wars_to_characters
             {
                 inactivity2();
             }
+            status();
         }
         //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
         public static void block1()
@@ -180,6 +188,7 @@ namespace Wars_to_characters
             stamina2 = stamina2 - (1 / 2);
             Console.WriteLine("Второй персонаж блокирует удар");
         }
+
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
         public static void inactivity1()
         {
@@ -194,26 +203,40 @@ namespace Wars_to_characters
         {
             if (stamina2_limit>=stamina2)
             {
-                Console.WriteLine("Первый персонаж, отдыхает!");
+                Console.WriteLine("Второй персонаж, отдыхает!");
                 stamina2 = stamina2 + 1;
             }
         }
+
         //Ввод переменных первого персонажа(ТИПА РАБОТАЕТ)
         public static void input_character1()
         {
-
+            
+            bool flagExcep;
             do
             {
+                flagExcep = false;
+                try
+                {
+                    Console.Write("Введите имя первого бойца=");
+                    name1 = Console.ReadLine();
+                    Console.Write("Введите значение силы первого персонажа=");
+                    force1 = float.Parse(Console.ReadLine());
+                    Console.Write("Введите значение ловкости первого персонажа=");
+                    agility1 = float.Parse(Console.ReadLine());
+                    Console.Write("Введите значение выносливости первого персонажа=");
+                    stamina1 = float.Parse(Console.ReadLine());
+                    if (force1 == 0 || agility1==0 || stamina1==0) throw new FormatException("Введенны не корректные данные");
+                    stamina1_limit = stamina1;
+                }
+
                 
-                Console.Write("Введите значение силы первого персонажа=");
-                force1 = float.Parse(Console.ReadLine());
-                Console.Write("Введите значение ловкости первого персонажа=");
-                agility1 = float.Parse(Console.ReadLine());
-                Console.Write("Введите значение выносливости первого персонажа=");
-                stamina1 = float.Parse(Console.ReadLine());
-                stamina1_limit = stamina1;
-                Console.Write("Введите имя первого бойца=");
-                name1 = Console.ReadLine();
+                catch (System.FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                    flagExcep = true;
+                    continue;
+                }
                 //stamina1 = stamina1_limit;
                 if (force1 + agility1 + stamina1 == 8)
                 {
@@ -223,25 +246,38 @@ namespace Wars_to_characters
                 {
                     Console.WriteLine("Условие не выполнено,введите повторно!");
                 }
-                Console.Clear();
-            } while (force1 + agility1 + stamina1 != 8);
+                
+                //Console.Clear();
+            } while ((force1 + agility1 + stamina1 != 8)||flagExcep);
             
 
         }
         //Ввод переменных второго персонажа(ТИПА РАБОТАЕТ)
         public static void input_character2()
         {
+            bool flagExcep;
             do
             {
-                Console.Write("Введите значение силы второго персонажа=");
-                force2 = float.Parse(Console.ReadLine());
-                Console.Write("Введите значение ловкости второго персонажа=");
-                agility2 = float.Parse(Console.ReadLine());
-                Console.Write("Введите значение выносливости второго персонажа=");
-                stamina2 = float.Parse(Console.ReadLine());
-                Console.Write("Введите имя второго бойца=");
-                name2=Console.ReadLine();
-                stamina2_limit = stamina2;
+                flagExcep = false;
+                try
+                {
+                    Console.Write("Введите имя второго бойца=");
+                    name2 = Console.ReadLine();
+                    Console.Write("Введите значение силы второго персонажа=");
+                    force2 = float.Parse(Console.ReadLine());
+                    Console.Write("Введите значение ловкости второго персонажа=");
+                    agility2 = float.Parse(Console.ReadLine());
+                    Console.Write("Введите значение выносливости второго персонажа=");
+                    stamina2 = float.Parse(Console.ReadLine());
+                    if (force2 == 0 || agility2 == 0 || stamina2 == 0) throw new FormatException("Введенны не корректные данные");
+                    stamina2_limit = stamina2;
+                }
+                catch (System.FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                    flagExcep = true;
+                    continue;
+                }
                 if (force2 + agility2 + stamina2 == 8)
                 {
                     Console.WriteLine("Условие выполнено");
@@ -250,8 +286,9 @@ namespace Wars_to_characters
                 {
                     Console.WriteLine("Условие не выполнено,введите повторно!");
                 }
-                Console.Clear();
-            } while (force2 + agility2 + stamina2 != 8);
+                
+                //Console.Clear();
+            } while (force2 + agility2 + stamina2 != 8 || flagExcep);
 
 
         }
@@ -265,6 +302,7 @@ namespace Wars_to_characters
                 {
                     hit1();
                     hit2();
+                    
                 } while (life1 >= 0 & life2 >= 0);
             }
             
@@ -276,6 +314,7 @@ namespace Wars_to_characters
                 {
                     hit2();
                     hit1();
+                    
                 } while (life1 >= 0 & life2 >= 0);
             }
             else
@@ -313,6 +352,27 @@ namespace Wars_to_characters
                 Console.Write(name2);
                 Console.Write(" погиб в жесткой схватке с ");
                 Console.WriteLine(name1);
+            }
+        }
+        public static void status()
+        {
+            if (mode==1)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+            Console.Write("Персонаж "); Console.Write(name1); Console.Write(" / жизнь="); Console.Write(life1); Console.Write(" / выносливость="); Console.Write(stamina1);
+            Console.Write(" / Персонаж "); Console.Write(name2); Console.Write(" / жизнь="); Console.Write(life2); Console.Write(" / выносливость="); Console.WriteLine(stamina2);
+        }
+        public static void game_mode()
+        {
+            try
+            {
+                Console.WriteLine("Введите 0, для автоматического режима/ введите 1, для ручного режима");
+                Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
+            }
+            catch (System.FormatException e)
+            {
+                Console.WriteLine("Ошибка");
             }
         }
     }
