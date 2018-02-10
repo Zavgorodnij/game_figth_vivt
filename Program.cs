@@ -52,7 +52,7 @@ namespace Wars_to_characters
                 //Атакует в полную силу
                 if (Event_backend1==1)
                 {
-                    if (stamina1<=0)
+                    if (stamina1<=0.5)
                     {
                         inactivity1();
                     }
@@ -118,7 +118,7 @@ namespace Wars_to_characters
                 //Атакует в полную силу
                 if (Event_backend2 == 1)
                 {
-                    if (stamina2 <= 0)
+                    if (stamina2 <= 0.5)
                     {
                         inactivity2();
                     }
@@ -139,7 +139,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine(name2 + " даёт в половину силы пиздюлей" + name1);
+                        Console.WriteLine(name2 + " даёт в половину силы пиздюлей " + name1);
                         life1 = life1 - (force2 / 2);
                         stamina2 = stamina2 - (stamina_edit / 2);
                     }
@@ -298,7 +298,7 @@ namespace Wars_to_characters
                     hit2();
                     status();
                     
-                } while (life1 >= 0 & life2 >= 0);
+                } while (life1 >= 0 & life2 >= 0 || life1==0 || life2==0);
             }
             
             //Если второй ловчее первого, то
@@ -311,7 +311,7 @@ namespace Wars_to_characters
                     hit1();
                     status();
                     
-                } while (life1 >= 0 & life2 >= 0);
+                } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
             if (agility1==agility2)
             {
@@ -333,7 +333,7 @@ namespace Wars_to_characters
                     }
 
 
-                } while (life1 >= 0 & life2 >= 0);
+                } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
         }
         public static void end()
@@ -375,5 +375,4 @@ namespace Wars_to_characters
         }
     }
 }
-
 
