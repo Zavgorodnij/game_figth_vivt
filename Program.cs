@@ -9,8 +9,10 @@ namespace Wars_to_characters
     {
         //Рандом
         static Random randint = new Random();
-        static int Event_fronted;
-        static int Event_backend;
+        static int Event_fronted1;
+        static int Event_backend1;
+        static int Event_fronted2;
+        static int Event_backend2;
         static int Event_figth;
         static int mode = 0;
         //Характеристика персонажа №1
@@ -40,55 +42,53 @@ namespace Wars_to_characters
         //Метод атаки первого бойца
         public static void hit1()
         {
-            Event_fronted = randint.Next(1, 3);
-            //Атакует
-            if (Event_fronted == 1)
+            Event_fronted1 = randint.Next(1, 3);
+            Event_backend1 = randint.Next(1, 3);
+            //Атакует общая ветка
+            if (Event_fronted1==1)
             {
-                Event_backend = randint.Next(1, 3);
+                
                 //Атакует в полную силу
-                if (Event_backend==1)
+                if (Event_backend1==1)
                 {
                     if (stamina1<=0)
                     {
-                        Console.WriteLine("Первый персонаж, отдыхает!");
                         inactivity1();
                     }
                     else
                     {
-                        Console.WriteLine("Первый персонаж, бьёт в полную силу!");
+                        Console.WriteLine(name1 + " даёт по полной пиздюлей " + name2);
                         life2 = life2 - force1;
                         stamina1 = stamina1 - 1;
                     }
+                    
                 }
                 //Атакует в половину силы
-                if (Event_backend==2)
+                if (Event_backend1==2)
                 {
-                    if (stamina1 <= 0)
+                    if (stamina1<=0)
                     {
-                        Console.WriteLine("Первый персонаж, отдыхает!");
                         inactivity1();
                     }
                     else
                     {
-                        Console.WriteLine("Первый персонаж, бьёт в половину силы!");
+                        Console.WriteLine(name1 + " даёт в половину силы пиздюлей " + name2);
                         life2 = life2 - (force1 / 2);
                         stamina1 = stamina1 - (1 / 2);
                     }
-                    
                 }
                 //Промахивается
-                else
+                if (Event_backend1==3)
                 {
-                    Console.WriteLine("Первый персонаж, промахивается!");
-                    stamina1 = stamina1 - 1;
+                    Console.WriteLine(name1 + " не даёт пиздюлей, так как промахнулся " + name2);
+                    stamina1 = stamina1 + 1;
                 }
             }
             //Блокирует
-            if (Event_fronted == 2)
+            if (Event_fronted1==2)
             {
-                if (stamina1 <= 0)
+                if(stamina2<=0)
                 {
-                    Console.WriteLine("Первый персонаж, отдыхает!");
                     inactivity1();
                 }
                 else
@@ -97,96 +97,81 @@ namespace Wars_to_characters
                 }
                 
             }
-            else
+            //Не активен
+            if (Event_fronted1==3)
             {
                 inactivity1();
             }
-            status();
+            
         }
+
         //Метод атаки второго бойца
         public static void hit2()
         {
-            Event_fronted = randint.Next(1, 3);
-            //Атакует
-            if (Event_fronted==1)
+            Event_fronted2 = randint.Next(1, 3);
+            Event_backend2 = randint.Next(1, 3);
+            //Атакует общая ветка
+            if (Event_fronted2 == 1)
             {
-                Event_backend = randint.Next(1, 3);
+
                 //Атакует в полную силу
-                if (Event_backend==1)
+                if (Event_backend2 == 1)
                 {
-                    if (stamina2<=0)
+                    if (stamina2 <= 0)
                     {
-                        
                         inactivity2();
                     }
                     else
                     {
-                        Console.WriteLine("Второй персонаж, атакует в полную силу!");
+                        Console.WriteLine(name2 + " даёт по полной пиздюлей " + name1);
                         life1 = life1 - force2;
                         stamina2 = stamina2 - 1;
                     }
-                    
+
                 }
                 //Атакует в половину силы
-                if (Event_backend==2)
+                if (Event_backend2 == 2)
                 {
-                    if (stamina2<=0)
+                    if (stamina2 <= 0)
                     {
                         inactivity2();
                     }
                     else
                     {
-                        Console.WriteLine("Второй персонаж, атакует в полную силу!");
+                        Console.WriteLine(name2 + " даёт в половину силы пиздюлей" + name1);
                         life1 = life1 - (force2 / 2);
                         stamina2 = stamina2 - (1 / 2);
                     }
-                    
                 }
                 //Промахивается
-                else
+                if (Event_backend2 == 3)
                 {
-                    if (stamina2<=0)
-                    {
-                        inactivity2();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Второй персонаж, промахивается!");
-                        stamina2 = stamina2 - 1;
-                    }
-                    
+                    Console.WriteLine(name2 + " не даёт пиздюлей, так как промахнулся " + name1);
+                    stamina2 = stamina2 + 1;
                 }
-                
             }
             //Блокирует
-            if (Event_fronted==2)
+            if (Event_fronted2 == 2)
             {
-                if (stamina2<=0)
-                {
-                    inactivity2();
-                }
-                else
-                {
-                    block2();
-                }
+                block2();
             }
-            else
+            //Не активен
+            if (Event_fronted2==3)
             {
                 inactivity2();
             }
-            status();
         }
-        //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
-        public static void block1()
+            //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
+            public static void block1()
         {
             stamina1 = stamina1 - (1 / 2);
-            Console.WriteLine("Первый персонаж блокирует удар");
+            Console.WriteLine(name1+" блокирует удар");
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
             stamina2 = stamina2 - (1 / 2);
-            Console.WriteLine("Второй персонаж блокирует удар");
+            Console.WriteLine(name2+" блокирует удар");
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
@@ -194,7 +179,7 @@ namespace Wars_to_characters
         {
             if (stamina1_limit>=stamina1)
             {
-                Console.WriteLine("Первый персонаж, отдыхает!");
+                Console.WriteLine(name1+ " прилёг отдохнуть во время боя!");
                 stamina1 = stamina1 + 1;
             }
         }
@@ -203,7 +188,7 @@ namespace Wars_to_characters
         {
             if (stamina2_limit>=stamina2)
             {
-                Console.WriteLine("Второй персонаж, отдыхает!");
+                Console.WriteLine(name2 + " прилёг отдохнуть во время боя!");
                 stamina2 = stamina2 + 1;
             }
         }
@@ -302,6 +287,7 @@ namespace Wars_to_characters
                 {
                     hit1();
                     hit2();
+                    status();
                     
                 } while (life1 >= 0 & life2 >= 0);
             }
@@ -314,10 +300,11 @@ namespace Wars_to_characters
                 {
                     hit2();
                     hit1();
+                    status();
                     
                 } while (life1 >= 0 & life2 >= 0);
             }
-            else
+            if (agility1==agility2)
             {
                 Event_figth = randint.Next(1, 100);
                 do
@@ -327,11 +314,13 @@ namespace Wars_to_characters
                     {
                         hit1();
                         hit2();
+                        status();
                     }
                     else
                     {
                         hit2();
                         hit1();
+                        status();
                     }
 
 
@@ -377,4 +366,3 @@ namespace Wars_to_characters
         }
     }
 }
-
