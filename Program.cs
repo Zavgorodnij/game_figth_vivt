@@ -47,10 +47,11 @@ namespace Wars_to_characters
         {
             Event_fronted1 = randint.Next(1, 3);
             Event_backend1 = randint.Next(1, 3);
+            life1_limit = life1;
             //Атакует общая ветка
             if (Event_fronted1==1)
             {
-                life1_limit = life1;
+                
                 //Атакует в полную силу
                 if (Event_backend1==1)
                 {
@@ -113,10 +114,11 @@ namespace Wars_to_characters
         {
             Event_fronted2 = randint.Next(1, 3);
             Event_backend2 = randint.Next(1, 3);
+            life2_limit = life2;
             //Атакует общая ветка
             if (Event_fronted2 == 1)
             {
-                life2_limit = life2;
+                
                 //Атакует в полную силу
                 if (Event_backend2 == 1)
                 {
@@ -177,45 +179,14 @@ namespace Wars_to_characters
         {
             stamina1 = stamina1 - (stamina_edit / 2);
             Console.WriteLine(name1 + " блокирует удар");
-            if (Event_backend2==1)
-            {
-                life1 = life1 + force2;
-                if(life1_limit>life1)
-                {
-                    life1 = life1_limit;
-                }
-            }
-            if (Event_backend2==2)
-            {
-                life1 = life1 + (force2 / 2);
-                if (life1_limit>life1)
-                {
-                    life1 = life1_limit;
-                }
-            }
+            life1 = life1_limit;
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
             stamina2 = stamina2 - (stamina_edit / 2);
             Console.WriteLine(name2+" блокирует удар");
-            if (Event_backend1 == 1)
-            {
-                life2 = life2 + force1;
-                if (life2_limit>life2)
-                {
-                    life2 = life2_limit;
-                }
-            }
-            if (Event_backend1 == 2)
-            {
-                life2 = life2 + (force1 / 2);
-                if (life2_limit>life2)
-                {
-                    life2 = life2_limit;
-                }
-            }
-
+            life2 = life2_limit;
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
@@ -350,10 +321,11 @@ namespace Wars_to_characters
             }
             if (agility1==agility2)
             {
+                Console.WriteLine("Первый удар наносит святой рандом!");
                 Event_figth = randint.Next(1, 100);
                 do
                 {
-                    Console.WriteLine("Первый удар наносит святой рандом!");
+                    
                     if (Event_figth<=50)
                     {
                         hit1();
@@ -386,6 +358,8 @@ namespace Wars_to_characters
                 Console.Write(" погиб в жесткой схватке с ");
                 Console.WriteLine(name1);
             }
+            Console.WriteLine("При нажатии на любую клавишу клавиатуры, приложение закроется");
+            Console.ReadKey();
         }
         public static void status()
         {
@@ -410,4 +384,5 @@ namespace Wars_to_characters
         }
     }
 }
+
 
