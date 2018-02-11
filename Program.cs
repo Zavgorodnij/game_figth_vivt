@@ -16,6 +16,8 @@ namespace Wars_to_characters
         static int Event_figth;
         static int mode = 0;
         static float stamina_edit = 1;
+        static float life1_limit;
+        static float life2_limit;
         //Характеристика персонажа №1
         static float force1 = 0;
         static float agility1 = 0;
@@ -58,7 +60,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine(name1 + " даёт по полной пиздюлей " + name2);
+                        Console.WriteLine(name1 + " пинает в полную силу " + name2);
                         life2 = life2 - force1;
                         stamina1 = stamina1 - 1;
                     }
@@ -172,15 +174,33 @@ namespace Wars_to_characters
         }
             //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
             public static void block1()
-        {
-            stamina1 = stamina1 - (stamina_edit / 2);
-            Console.WriteLine(name1+" блокирует удар");
-        }
+            {
+                stamina1 = stamina1 - (stamina_edit / 2);
+                Console.WriteLine(name1+" блокирует удар");
+                if (Event_backend2 == 1)
+                {
+                life1 = life1 + force2;
+                }
+                if (Event_backend2 == 2)
+                {
+                life1 = life1 + (force2 / 2);
+                }
+
+            }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
             stamina2 = stamina2 - (stamina_edit / 2);
             Console.WriteLine(name2+" блокирует удар");
+            if (Event_backend1 == 1)
+            {
+                life2 = life2 + force1;
+            }
+            if (Event_backend1 == 2)
+            {
+                life2 = life2 + (force1 / 2);
+            }
+
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
