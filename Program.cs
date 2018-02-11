@@ -50,7 +50,7 @@ namespace Wars_to_characters
             //Атакует общая ветка
             if (Event_fronted1==1)
             {
-                
+                life1_limit = life1;
                 //Атакует в полную силу
                 if (Event_backend1==1)
                 {
@@ -116,7 +116,7 @@ namespace Wars_to_characters
             //Атакует общая ветка
             if (Event_fronted2 == 1)
             {
-
+                life2_limit = life2;
                 //Атакует в полную силу
                 if (Event_backend2 == 1)
                 {
@@ -173,20 +173,27 @@ namespace Wars_to_characters
             }
         }
             //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
-            public static void block1()
+        public static void block1()
+        {
+            stamina1 = stamina1 - (stamina_edit / 2);
+            Console.WriteLine(name1 + " блокирует удар");
+            if (Event_backend2==1)
             {
-                stamina1 = stamina1 - (stamina_edit / 2);
-                Console.WriteLine(name1+" блокирует удар");
-                if (Event_backend2 == 1)
-                {
                 life1 = life1 + force2;
-                }
-                if (Event_backend2 == 2)
+                if(life1_limit>life1)
                 {
-                life1 = life1 + (force2 / 2);
+                    life1 = life1_limit;
                 }
-
             }
+            if (Event_backend2==2)
+            {
+                life1 = life1 + (force2 / 2);
+                if (life1_limit>life1)
+                {
+                    life1 = life1_limit;
+                }
+            }
+        }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
@@ -195,10 +202,18 @@ namespace Wars_to_characters
             if (Event_backend1 == 1)
             {
                 life2 = life2 + force1;
+                if (life2_limit>life2)
+                {
+                    life2 = life2_limit;
+                }
             }
             if (Event_backend1 == 2)
             {
                 life2 = life2 + (force1 / 2);
+                if (life2_limit>life2)
+                {
+                    life2 = life2_limit;
+                }
             }
 
         }
