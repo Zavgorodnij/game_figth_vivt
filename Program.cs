@@ -387,6 +387,10 @@ namespace Wars_to_characters
                 Console.Write(" погиб в жесткой схватке с ");
                 Console.WriteLine(name2);
             }
+            if (life1==0 & life2==0)
+            {
+                Console.WriteLine("Герои умерли смертью храбрых! Земля им пухом");
+            }
             else
             {
                 Console.Write(name2);
@@ -422,9 +426,10 @@ namespace Wars_to_characters
                 {
                     Console.WriteLine("Введите 0, для автоматического режима/ введите 1, для ручного режима");
                     Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
+                    if (mode<0) throw new FormatException("Мне больно;( Не вводи отрицательное число");
                 }
 
-                catch (System.FormatException e)
+                catch (System.FormatException e )
                 {
                     Console.WriteLine("Ошибка");
                     flagExcep = true;
@@ -460,6 +465,10 @@ namespace Wars_to_characters
             {
                 Console.WriteLine("При нажатии на любую клавишу клавиатуры, приложение закроется");
                 Console.ReadKey();
+            }
+            else
+            {
+                repeat_game();
             }
         }
     }
