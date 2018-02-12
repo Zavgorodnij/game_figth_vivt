@@ -15,6 +15,7 @@ namespace Wars_to_characters
         static int Event_backend2;
         static int Event_figth;
         static int mode = 0;
+        static int repeat;
         static float stamina_edit = 1;
         static float life1_limit;
         static float life2_limit;
@@ -76,7 +77,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine(name1 + " даёт в половину силы пиздюлей " + name2);
+                        Console.WriteLine(name1 + " пинает ногами " + name2);
                         life2 = life2 - (force1 / 2);
                         stamina1 = stamina1 - (stamina_edit/2);
                     }
@@ -84,7 +85,7 @@ namespace Wars_to_characters
                 //Промахивается
                 if (Event_backend1==3)
                 {
-                    Console.WriteLine(name1 + " не даёт пиздюлей, так как промахнулся " + name2);
+                    Console.WriteLine(name1 + " не пинает ногами, так как промахнулся " + name2);
                     stamina1 = stamina1 + stamina_edit;
                 }
             }
@@ -128,7 +129,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine(name2 + " даёт по полной пиздюлей " + name1);
+                        Console.WriteLine(name2 + " даёт по полной по звездюлей " + name1);
                         life1 = life1 - force2;
                         stamina2 = stamina2 - stamina_edit;
                     }
@@ -143,7 +144,7 @@ namespace Wars_to_characters
                     }
                     else
                     {
-                        Console.WriteLine(name2 + " даёт в половину силы пиздюлей " + name1);
+                        Console.WriteLine(name2 + " даёт в половину силы урона " + name1);
                         life1 = life1 - (force2 / 2);
                         stamina2 = stamina2 - (stamina_edit / 2);
                     }
@@ -151,7 +152,7 @@ namespace Wars_to_characters
                 //Промахивается
                 if (Event_backend2 == 3)
                 {
-                    Console.WriteLine(name2 + " не даёт пиздюлей, так как промахнулся " + name1);
+                    Console.WriteLine(name2 + " не даёт звездюлей, так как промахнулся " + name1);
                     stamina2 = stamina2 + stamina_edit;
                 }
             }
@@ -226,7 +227,8 @@ namespace Wars_to_characters
                     agility1 = float.Parse(Console.ReadLine());
                     Console.Write("Введите значение выносливости первого персонажа=");
                     stamina1 = float.Parse(Console.ReadLine());
-                    if (force1 == 0 || agility1==0 || stamina1==0) throw new FormatException("Введенны не корректные данные");
+                    if (name1 == "") throw new FormatException("Мне больно;( Введите хоть что то в имя персонажа...");
+                    if (force1 <= 0 || agility1<=0 || stamina1<=0) throw new FormatException("Введенны не корректные данные");
                     stamina1_limit = stamina1;
                 }
 
@@ -269,7 +271,8 @@ namespace Wars_to_characters
                     agility2 = float.Parse(Console.ReadLine());
                     Console.Write("Введите значение выносливости второго персонажа=");
                     stamina2 = float.Parse(Console.ReadLine());
-                    if (force2 == 0 || agility2 == 0 || stamina2 == 0) throw new FormatException("Введенны не корректные данные");
+                    if (name2 == "") throw new FormatException("Мне больно;( Введите хоть что то в имя персонажа");
+                    if (force2 <= 0 || agility2 <= 0 || stamina2 <= 0) throw new FormatException("Введенны не корректные данные");
                     stamina2_limit = stamina2;
                 }
                 catch (System.FormatException e)
@@ -303,6 +306,14 @@ namespace Wars_to_characters
                     hit1();
                     hit2();
                     status();
+                    if (life1==0)
+                    {
+                        break;
+                    }
+                    if (life2==0)
+                    {
+                        break;
+                    }
                     
                 } while (life1 >= 0 & life2 >= 0 || life1==0 || life2==0);
             }
@@ -316,6 +327,14 @@ namespace Wars_to_characters
                     hit2();
                     hit1();
                     status();
+                    if (life1==0)
+                    {
+                        break;
+                    }
+                    if (life2==0)
+                    {
+                        break;
+                    }
                     
                 } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
@@ -331,12 +350,28 @@ namespace Wars_to_characters
                         hit1();
                         hit2();
                         status();
+                        if (life1==0)
+                        {
+                            break;
+                        }
+                        if (life2==0)
+                        {
+                            break;
+                        }
                     }
                     else
                     {
                         hit2();
                         hit1();
                         status();
+                        if (life1==0)
+                        {
+                            break;
+                        }
+                        if (life2==0)
+                        {
+                            break;
+                        }
                     }
 
 
@@ -358,31 +393,75 @@ namespace Wars_to_characters
                 Console.Write(" погиб в жесткой схватке с ");
                 Console.WriteLine(name1);
             }
-            Console.WriteLine("При нажатии на любую клавишу клавиатуры, приложение закроется");
-            Console.ReadKey();
+            repeat_game();
         }
         public static void status()
         {
             if (mode==1)
             {
-                System.Threading.Thread.Sleep(1000);
+                Console.ReadKey();
+            }
+            if (life1<0)
+            {
+                life1 = 0;
+            }
+            if (life2<0)
+            {
+                life2 = 0;
             }
             Console.Write("Персонаж "); Console.Write(name1); Console.Write(" / жизнь="); Console.Write(life1); Console.Write(" / выносливость="); Console.Write(stamina1);
             Console.Write(" / Персонаж "); Console.Write(name2); Console.Write(" / жизнь="); Console.Write(life2); Console.Write(" / выносливость="); Console.WriteLine(stamina2);
         }
         public static void game_mode()
         {
-            try
+            bool flagExcep;
+            do
             {
-                Console.WriteLine("Введите 0, для автоматического режима/ введите 1, для ручного режима");
-                Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
+                flagExcep = false;
+                try
+                {
+                    Console.WriteLine("Введите 0, для автоматического режима/ введите 1, для ручного режима");
+                    Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
+                }
+
+                catch (System.FormatException e)
+                {
+                    Console.WriteLine("Ошибка");
+                    flagExcep = true;
+                }
+            } while (flagExcep);
+        }
+        public static void repeat_game()
+        {
+            Console.WriteLine("Хотите повторить? нажмите 1 для повтора/ нажмите 0, для завершения");
+            bool flagExcep;
+            do
+            {
+                flagExcep = false;
+                Console.Write("Введите команду=");
+                try
+                {
+                    repeat = int.Parse(Console.ReadLine());
+                }
+
+                catch (System.FormatException e)
+                {
+                    Console.WriteLine("Да мне же больно, введи нормально!");
+                    flagExcep = true;
+                    continue;
+                }
+            } while (flagExcep);
+            if (repeat == 1)
+            {
+                Console.Clear();
+                Main();
             }
-            catch (System.FormatException e)
+            if (repeat == 0)
             {
-                Console.WriteLine("Ошибка");
+                Console.WriteLine("При нажатии на любую клавишу клавиатуры, приложение закроется");
+                Console.ReadKey();
             }
         }
     }
 }
-
 
