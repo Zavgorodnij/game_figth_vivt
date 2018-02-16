@@ -38,7 +38,7 @@ namespace Wars_to_characters
         {
             input_character1();
             input_character2();
-            game_mode();
+            //game_mode();
             fight();
             end();
 
@@ -205,7 +205,7 @@ namespace Wars_to_characters
             if (stamina2_limit>=stamina2)
             {
                 Console.WriteLine(name2 + " прилёг отдохнуть во время боя!");
-                stamina2 = stamina2 + 1;
+                stamina2 = stamina2 + stamina_edit;
             }
         }
 
@@ -359,7 +359,7 @@ namespace Wars_to_characters
                             break;
                         }
                     }
-                    else
+                    if (Event_figth>50)
                     {
                         hit2();
                         hit1();
@@ -391,7 +391,7 @@ namespace Wars_to_characters
             {
                 Console.WriteLine("Герои умерли смертью храбрых! Земля им пухом");
             }
-            else
+            if (life2<=0)
             {
                 Console.Write(name2);
                 Console.Write(" погиб в жесткой схватке с ");
@@ -413,7 +413,8 @@ namespace Wars_to_characters
             {
                 life2 = 0;
             }
-            Console.Write("Персонаж "); Console.Write(name1); Console.Write(" / жизнь="); Console.Write(life1); Console.Write(" / выносливость="); Console.Write(stamina1);
+            Console.Write("Персонаж "); Console.Write(name1); Console.Write(" / жизнь=");
+            Console.Write(life1); Console.Write(" / выносливость="); Console.Write(stamina1);
             Console.Write(" / Персонаж "); Console.Write(name2); Console.Write(" / жизнь="); Console.Write(life2); Console.Write(" / выносливость="); Console.WriteLine(stamina2);
         }
         public static void game_mode()
@@ -426,7 +427,7 @@ namespace Wars_to_characters
                 {
                     Console.WriteLine("Введите 0, для автоматического режима/ введите 1, для ручного режима");
                     Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
-                    if (mode<0) throw new FormatException("Мне больно;( Не вводи отрицательное число");
+                    if (mode<0 ||mode>1) throw new FormatException("Мне больно;( Не вводи отрицательное число");
                 }
 
                 catch (System.FormatException e )
@@ -440,6 +441,8 @@ namespace Wars_to_characters
         {
             Console.WriteLine("Хотите повторить? нажмите 1 для повтора/ нажмите 0, для завершения");
             bool flagExcep;
+            life1 = 50;
+            life2 = 50;
             do
             {
                 flagExcep = false;
