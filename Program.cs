@@ -234,7 +234,11 @@ namespace Wars_to_characters
                     stamina1_limit = stamina1;
                 }
 
-
+                catch (System.ArgumentNullException)
+                {
+                    Console.WriteLine("Ошибка");
+                    flagExcep = true;
+                }
                 catch (System.FormatException e)
                 {
                     Console.WriteLine(e.Message);
@@ -276,6 +280,11 @@ namespace Wars_to_characters
                     if (name2 == "") throw new FormatException("Мне больно;( Введите хоть что то в имя персонажа");
                     if (force2 <= 0 || agility2 <= 0 || stamina2 <= 0) throw new FormatException("Введенны не корректные данные");
                     stamina2_limit = stamina2;
+                }
+                catch (System.ArgumentNullException)
+                {
+                    Console.WriteLine("Ошибка");
+                    flagExcep = true;
                 }
                 catch (System.FormatException e)
                 {
@@ -431,7 +440,11 @@ namespace Wars_to_characters
                     Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
                     if (mode < 0 || mode > 1) throw new FormatException("Мне больно;( Не вводи отрицательное число");
                 }
-
+                catch(System.ArgumentNullException)
+                {
+                    Console.WriteLine("Ошибка");
+                    flagExcep = true;
+                }
                 catch (System.FormatException e)
                 {
                     Console.WriteLine("Ошибка");
@@ -476,7 +489,7 @@ namespace Wars_to_characters
                 repeat_game();
             }
         }
-        public static void search_force_characters()
+        public static void search_force_characters1()
         {
             search_force1 = life1_limit - life1;
         }
@@ -486,7 +499,7 @@ namespace Wars_to_characters
         }
         public static void adaptive_fight()
         {
-            if (agility1>agility2)
+            if (agility1 > agility2)
             {
                 Console.WriteLine("Первый удар наносит первый персонаж");
                 do
@@ -504,7 +517,7 @@ namespace Wars_to_characters
                     }
                 } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
-            if (agility1<agility2)
+            if (agility1 < agility2)
             {
                 Console.WriteLine("Первый удар наносит второй персонаж");
                 do
@@ -522,7 +535,7 @@ namespace Wars_to_characters
                     }
                 } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
-            if (agility1==agility2)
+            if (agility1 == agility2)
             {
                 Console.WriteLine("Первый удар наносит святой рандом");
                 Event_figth = randint.Next(1, 100);
@@ -542,12 +555,12 @@ namespace Wars_to_characters
                             break;
                         }
                     }
-                    if (Event_figth>=50)
+                    if (Event_figth >= 50)
                     {
                         adaptive_hit2();
                         adaptive_hit1();
                         status();
-                        if (life1==0)
+                        if (life1 == 0)
                         {
                             break;
                         }
@@ -561,19 +574,41 @@ namespace Wars_to_characters
         }
         public static void adaptive_hit1()
         {
+            life1_limit = life1;
+            Event_backend1 = randint.Next(1, 3);
+            //Если первый сильнее второго
+            if (search_force1>search_force2)
+            {
 
+            }
+            //Если второй сильнее первого
+            if (search_force1<search_force2)
+            {
+
+            }
+            if (search_force1==search_force2)
+            {
+                fight();
+            }
+            //Атакует впринципе
         }
         public static void adaptive_hit2()
         {
+            life2_limit = life2;
+            Event_backend2 = randint.Next(1, 3);
+            //Если второй
+
 
         }
-        public static void adaptive_hard_strategy_character1()
+        public static void search_stamina_character1()
         {
 
         }
-        public static void adaptyve_hard_strategy_character2()
+        public static void search_stamina_character2()
         {
 
         }
+
     }
+
 }
