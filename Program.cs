@@ -17,6 +17,7 @@ namespace Wars_to_characters
         static bool block_character2;
         static int Event_figth;
         static int mode = 0;
+        static int adaptiv_mode = 0;
         static int repeat;
         static float stamina_edit = 1;
         static float life1_limit;
@@ -42,8 +43,16 @@ namespace Wars_to_characters
         {
             input_character1();
             input_character2();
+            adaptive_mode();
             game_mode();
-            fight();
+            if (adaptiv_mode==1)
+            {
+                adaptive_fight();
+            }
+            if (adaptiv_mode==0)
+            {
+                fight();
+            }
             end();
 
         }
@@ -229,6 +238,7 @@ namespace Wars_to_characters
                 {
                     Console.Write("Введите имя первого бойца=");
                     name1 = Console.ReadLine();
+                    Console.WriteLine("При вводе данных вы не должны забывать о том, что сумма:Силы, ловкости и выносливости должна быть равна 8");
                     Console.Write("Введите значение силы первого персонажа=");
                     force1 = float.Parse(Console.ReadLine());
                     Console.Write("Введите значение ловкости первого персонажа=");
@@ -239,7 +249,11 @@ namespace Wars_to_characters
                     if (force1 <= 0 || agility1 <= 0 || stamina1 <= 0) throw new FormatException("Введенны не корректные данные");
                     stamina1_limit = stamina1;
                 }
-
+                catch(System.OverflowException)
+                {
+                    Console.WriteLine("Ошибка:введено слишком большое число");
+                    flagExcep = true;
+                }
                 catch (System.ArgumentNullException)
                 {
                     Console.WriteLine("Ошибка");
@@ -277,6 +291,7 @@ namespace Wars_to_characters
                 {
                     Console.Write("Введите имя второго бойца=");
                     name2 = Console.ReadLine();
+                    Console.WriteLine("При вводе данных вы не должны забывать о том, что сумма:Силы, ловкости и выносливости должна быть равна 8");
                     Console.Write("Введите значение силы второго персонажа=");
                     force2 = float.Parse(Console.ReadLine());
                     Console.Write("Введите значение ловкости второго персонажа=");
@@ -286,6 +301,11 @@ namespace Wars_to_characters
                     if (name2 == "") throw new FormatException("Мне больно;( Введите хоть что то в имя персонажа");
                     if (force2 <= 0 || agility2 <= 0 || stamina2 <= 0) throw new FormatException("Введенны не корректные данные");
                     stamina2_limit = stamina2;
+                }
+                catch (System.OverflowException)
+                {
+                    Console.WriteLine("Ошибка:введено слишком большое число");
+                    flagExcep = true;
                 }
                 catch (System.ArgumentNullException)
                 {
@@ -460,7 +480,12 @@ namespace Wars_to_characters
                     Console.Write("Введите режим работы="); mode = int.Parse(Console.ReadLine());
                     if (mode < 0 || mode > 1) throw new FormatException("Мне больно;( Не вводи отрицательное число");
                 }
-                catch(System.ArgumentNullException)
+                catch (System.OverflowException e)
+                {
+                    Console.WriteLine("Ошибка:введено слишком большое число");
+                    flagExcep = true;
+                }
+                catch(System.ArgumentNullException e)
                 {
                     Console.WriteLine("Ошибка");
                     flagExcep = true;
@@ -486,7 +511,11 @@ namespace Wars_to_characters
                 {
                     repeat = int.Parse(Console.ReadLine());
                 }
-
+                catch (System.OverflowException e)
+                {
+                    Console.WriteLine("Ошибка:введено слишком большое число");
+                    flagExcep = true;
+                }
                 catch (System.FormatException e)
                 {
                     Console.WriteLine("Да мне же больно, введи нормально!");
@@ -517,7 +546,42 @@ namespace Wars_to_characters
                 life2 = life2_limit;
             }
         }
-        /*public static void search_force_characters1()
+        public static void adaptive_mode()
+        {
+            bool flagExcep;
+            Console.WriteLine("Желаете ли вы использовать аддаптивный алгоритм поведения персонажей?");
+            Console.WriteLine("1=Включить/0=Выключить");
+            do
+            {
+                flagExcep = false;
+                try
+                {
+                    Console.Write("Введите режим="); adaptiv_mode = int.Parse(Console.ReadLine());
+                    if (adaptiv_mode < 0 || adaptiv_mode > 1) throw new FormatException("Мне больно;( Не вводи отрицательное число");
+                }
+                catch (System.OverflowException e)
+                {
+                    flagExcep = true;
+                    Console.WriteLine("Мне больно, вы пихаете слишком большое число");
+                }
+                catch (System.FormatException e)
+                {
+                    flagExcep = true;
+                    Console.WriteLine("Ошибка! Введите число");
+                }
+            } while (flagExcep);
+            {
+                if (mode==1)
+                {
+                    Console.WriteLine("Адаптивный режим включен!");
+                }
+                if (mode==0)
+                {
+                    Console.WriteLine("Адаптивный режим не включен, бой расчитывается через рандомные методы");
+                }
+            }
+        }
+        public static void search_force_characters1()
         {
             search_force1 = life1_limit - life1;
         }
@@ -527,115 +591,29 @@ namespace Wars_to_characters
         }
         public static void adaptive_fight()
         {
-            if (agility1 > agility2)
+            do
             {
-                Console.WriteLine("Первый удар наносит первый персонаж");
-                do
+                if (search_force1 > search_force2)
                 {
-                    adaptive_hit1();
-                    adaptive_hit2();
-                    status();
-                    if (life1 == 0)
-                    {
-                        break;
-                    }
-                    if (life2 == 0)
+                    do
                     {
 
-                    }
-                } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
-            }
-            if (agility1 < agility2)
-            {
-                Console.WriteLine("Первый удар наносит второй персонаж");
-                do
+                    } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
+                }
+                if (search_force1 < search_force2)
                 {
-                    adaptive_hit2();
-                    adaptive_hit1();
-                    status();
-                    if (life1 == 0)
+                    do
                     {
-                        break;
-                    }
-                    if (life2 == 0)
-                    {
-                        break;
-                    }
-                } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
-            }
-            if (agility1 == agility2)
-            {
-                Console.WriteLine("Первый удар наносит святой рандом");
-                Event_figth = randint.Next(1, 100);
-                do
+                        
+                    } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
+                }
+                if (search_force1 == search_force2)
                 {
-                    if (Event_figth < 50)
-                    {
-                        adaptive_hit1();
-                        adaptive_hit2();
-                        status();
-                        if (life1 == 0)
-                        {
-                            break;
-                        }
-                        if (life2 == 0)
-                        {
-                            break;
-                        }
-                    }
-                    if (Event_figth >= 50)
-                    {
-                        adaptive_hit2();
-                        adaptive_hit1();
-                        status();
-                        if (life1 == 0)
-                        {
-                            break;
-                        }
-                        if (life2 == 0)
-                        {
-                            break;
-                        }
-                    }
-                } while (life2 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
-            }
-        }
-        public static void adaptive_hit1()
-        {
-            life1_limit = life1;
-            Event_backend1 = randint.Next(1, 3);
-            //Если первый сильнее второго
-            if (search_force1>search_force2)
-            {
-
-            }
-            //Если второй сильнее первого
-            if (search_force1<search_force2)
-            {
-
-            }
-            if (search_force1==search_force2)
-            {
-                fight();
-            }
-            //Атакует впринципе
-        }
-        public static void adaptive_hit2()
-        {
-            life2_limit = life2;
-            Event_backend2 = randint.Next(1, 3);
-            //Если второй
-
+                    fight();
+                }
+            } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
 
         }
-        public static void search_stamina_character1()
-        {
-
-        }
-        public static void search_stamina_character2()
-        {
-
-        }*/
 
     }
 
