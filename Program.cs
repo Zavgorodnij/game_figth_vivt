@@ -50,7 +50,7 @@ namespace Wars_to_characters
         {
             Event_fronted1 = randint.Next(1, 3);
             Event_backend1 = randint.Next(1, 3);
-            life1_limit = life1;
+            
             //Атакует общая ветка
             if (Event_fronted1 == 1)
             {
@@ -109,6 +109,7 @@ namespace Wars_to_characters
             {
                 inactivity1();
             }
+            
 
         }
 
@@ -117,7 +118,7 @@ namespace Wars_to_characters
         {
             Event_fronted2 = randint.Next(1, 3);
             Event_backend2 = randint.Next(1, 3);
-            life2_limit = life2;
+            
             //Атакует общая ветка
             if (Event_fronted2 == 1)
             {
@@ -183,6 +184,7 @@ namespace Wars_to_characters
             stamina1 = stamina1 - (stamina_edit / 2);
             Console.WriteLine(name1 + " блокирует удар");
             life1 = life1_limit;
+            life2 = life2_limit;
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
@@ -190,6 +192,7 @@ namespace Wars_to_characters
             stamina2 = stamina2 - (stamina_edit / 2);
             Console.WriteLine(name2 + " блокирует удар");
             life2 = life2_limit;
+            life1 = life1_limit;
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
@@ -314,6 +317,8 @@ namespace Wars_to_characters
                 Console.WriteLine("Первый удар наносит первый персонаж!");
                 do
                 {
+                    life1_limit = life1;
+                    life2_limit = life2;
                     hit1();
                     hit2();
                     status();
@@ -332,9 +337,12 @@ namespace Wars_to_characters
             //Если второй ловчее первого, то
             if (agility1 < agility2)
             {
+                int mass = 0;
                 Console.WriteLine("Первый удар наносит второй персонаж!");
                 do
                 {
+                    life1_limit = life1;
+                    life2_limit = life2;
                     hit2();
                     hit1();
                     status();
@@ -358,6 +366,8 @@ namespace Wars_to_characters
 
                     if (Event_figth <= 50)
                     {
+                        life1_limit = life1;
+                        life2_limit = life2;
                         hit1();
                         hit2();
                         status();
@@ -372,6 +382,8 @@ namespace Wars_to_characters
                     }
                     if (Event_figth > 50)
                     {
+                        life1_limit = life1;
+                        life2_limit = life2;
                         hit2();
                         hit1();
                         status();
@@ -489,7 +501,7 @@ namespace Wars_to_characters
                 repeat_game();
             }
         }
-        public static void search_force_characters1()
+        /*public static void search_force_characters1()
         {
             search_force1 = life1_limit - life1;
         }
@@ -607,7 +619,7 @@ namespace Wars_to_characters
         public static void search_stamina_character2()
         {
 
-        }
+        }*/
 
     }
 
