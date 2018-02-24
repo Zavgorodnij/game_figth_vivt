@@ -13,6 +13,8 @@ namespace Wars_to_characters
         static int Event_backend1;
         static int Event_fronted2;
         static int Event_backend2;
+        static bool block_character1;
+        static bool block_character2;
         static int Event_figth;
         static int mode = 0;
         static int repeat;
@@ -48,6 +50,7 @@ namespace Wars_to_characters
         //Метод атаки первого бойца
         public static void hit1()
         {
+            block_character1 = false;
             Event_fronted1 = randint.Next(1, 3);
             Event_backend1 = randint.Next(1, 3);
             
@@ -116,6 +119,7 @@ namespace Wars_to_characters
         //Метод атаки второго бойца
         public static void hit2()
         {
+            block_character2 = false;
             Event_fronted2 = randint.Next(1, 3);
             Event_backend2 = randint.Next(1, 3);
             
@@ -181,18 +185,17 @@ namespace Wars_to_characters
         //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
         public static void block1()
         {
+            block_character1 = true;
             stamina1 = stamina1 - (stamina_edit / 2);
             Console.WriteLine(name1 + " блокирует удар");
-            life1 = life1_limit;
-            life2 = life2_limit;
+            
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         public static void block2()
         {
+            block_character2 = true;
             stamina2 = stamina2 - (stamina_edit / 2);
             Console.WriteLine(name2 + " блокирует удар");
-            life2 = life2_limit;
-            life1 = life1_limit;
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
@@ -321,6 +324,7 @@ namespace Wars_to_characters
                     life2_limit = life2;
                     hit1();
                     hit2();
+                    global_block_repeat_life();
                     status();
                     if (life1 == 0)
                     {
@@ -345,6 +349,7 @@ namespace Wars_to_characters
                     life2_limit = life2;
                     hit2();
                     hit1();
+                    global_block_repeat_life();
                     status();
                     if (life1 == 0)
                     {
@@ -370,6 +375,7 @@ namespace Wars_to_characters
                         life2_limit = life2;
                         hit1();
                         hit2();
+                        global_block_repeat_life();
                         status();
                         if (life1 == 0)
                         {
@@ -386,6 +392,7 @@ namespace Wars_to_characters
                         life2_limit = life2;
                         hit2();
                         hit1();
+                        global_block_repeat_life();
                         status();
                         if (life1 == 0)
                         {
@@ -424,10 +431,7 @@ namespace Wars_to_characters
         }
         public static void status()
         {
-            if (mode == 1)
-            {
-                Console.ReadKey();
-            }
+            
             if (life1 < 0)
             {
                 life1 = 0;
@@ -439,6 +443,10 @@ namespace Wars_to_characters
             Console.Write("Персонаж "); Console.Write(name1); Console.Write(" / жизнь=");
             Console.Write(life1); Console.Write(" / выносливость="); Console.Write(stamina1);
             Console.Write(" / Персонаж "); Console.Write(name2); Console.Write(" / жизнь="); Console.Write(life2); Console.Write(" / выносливость="); Console.WriteLine(stamina2);
+            if (mode == 1)
+            {
+                Console.ReadKey();
+            }
         }
         public static void game_mode()
         {
@@ -499,6 +507,14 @@ namespace Wars_to_characters
             else
             {
                 repeat_game();
+            }
+        }
+        public static void global_block_repeat_life()
+        {
+            if (block_character1 == true || block_character2 == true)
+            {
+                life1 = life1_limit;
+                life2 = life2_limit;
             }
         }
         /*public static void search_force_characters1()
