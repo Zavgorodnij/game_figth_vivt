@@ -7,36 +7,120 @@ namespace Wars_to_characters
 {
     class Program
     {
-        //Рандом
+        //Рандом & нужные переменные
+        /// <summary>
+        /// Класс рандома
+        /// </summary>
         static Random randint = new Random();
+        /// <summary>
+        /// Переменная используемая для внешних событий первого персонажа в рандомном алгоритме
+        /// </summary>
         static int Event_fronted1;
+        /// <summary>
+        /// Переменная используемая для внутренних событий первого персонажа в рандомном алгоритме
+        /// </summary>
         static int Event_backend1;
+        /// <summary>
+        /// Переменная используемая для внутренних событий второго персонажа в рандомном алгоритме
+        /// </summary>
         static int Event_fronted2;
+        /// <summary>
+        /// Переменная используемая для внешних событий второго персонажа в рандомном алгоритме
+        /// </summary>
         static int Event_backend2;
+        /// <summary>
+        /// Переменная используемая для определения блокировки первого персонажа
+        /// </summary>
         static bool block_character1;
+        /// <summary>
+        /// Переменная используемая для определения блокировки второго персонажа
+        /// </summary>
         static bool block_character2;
+        /// <summary>
+        /// Переменная для рандома первого хода персонажа (Рандом)(Если выносливость одинаковая)
+        /// </summary>
         static int Event_figth;
+        /// <summary>
+        /// Переменная для определения режима работы(Авто/Ручной)
+        /// </summary>
         static int mode = 0;
+        /// <summary>
+        /// Переменная для запуска адаптивного режима
+        /// </summary>
         static int adaptiv_mode = 0;
+        /// <summary>
+        /// Переменная для запуска повторного сражения
+        /// </summary>
         static int repeat;
+        /// <summary>
+        /// Зарезервированная переменная для уменьшения выносливости
+        /// </summary>
         static float stamina_edit = 1;
+        /// <summary>
+        /// Лимит для жизни
+        /// </summary>
         static float life1_limit;
+        /// <summary>
+        /// Лимит для жизни
+        /// </summary>
         static float life2_limit;
+        /// <summary>
+        /// Переменная в которой лежит найденная сила первого персонажа
+        /// </summary>
         static float search_force1 = 0;
+        /// <summary>
+        /// Переменная в которой лежит найденная сила второго персонажа
+        /// </summary>
         static float search_force2 = 0;
         //Характеристика персонажа №1
+        /// <summary>
+        /// Сила первого
+        /// </summary>
         static float force1 = 0;
+        /// <summary>
+        /// Ловкость первого
+        /// </summary>
         static float agility1 = 0;
+        /// <summary>
+        /// Выносливость первого
+        /// </summary>
         static float stamina1 = 0;
+        /// <summary>
+        /// Лимит выносливости первого
+        /// </summary>
         static float stamina1_limit = 0;
+        /// <summary>
+        /// Жизнь первого
+        /// </summary>
         static float life1 = 50;
+        /// <summary>
+        /// Имя первого
+        /// </summary>
         static string name1 = "null";
         //Характеристика персонажа №2
+        /// <summary>
+        /// Сила первого
+        /// </summary>
         static float force2 = 0;
+        /// <summary>
+        /// Ловкость второго
+        /// </summary>
         static float agility2 = 0;
+        /// <summary>
+        /// Виносливость второго
+        /// </summary>
         static float stamina2 = 0;
+        /// <summary>
+        /// Лимит выносливости второго
+        /// </summary>
         static float stamina2_limit = 0;
+        /// <summary>
+        /// Жизнь второго
+        /// </summary>
         static float life2 = 50;
+        /// <summary>
+        /// Имя второго
+        /// </summary>
         static string name2 = "null";
         //Сама программа
         public static void Main()
@@ -57,6 +141,9 @@ namespace Wars_to_characters
 
         }
         //Метод атаки первого бойца
+        /// <summary>
+        /// Метод атаки первого бойца(Рандом)
+        /// </summary>
         public static void hit1()
         {
             block_character1 = false;
@@ -126,6 +213,9 @@ namespace Wars_to_characters
         }
 
         //Метод атаки второго бойца
+        /// <summary>
+        /// Метод атаки второго бойца(Рандом)
+        /// </summary>
         public static void hit2()
         {
             block_character2 = false;
@@ -192,6 +282,9 @@ namespace Wars_to_characters
             }
         }
         //Метод блокировки первого бойца(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Метод блокировки первого бойца
+        /// </summary>
         public static void block1()
         {
             block_character1 = true;
@@ -200,6 +293,9 @@ namespace Wars_to_characters
             
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Метод блокировки второго бойца
+        /// </summary>
         public static void block2()
         {
             block_character2 = true;
@@ -208,6 +304,9 @@ namespace Wars_to_characters
         }
 
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Метод бездействия первого бойца
+        /// </summary>
         public static void inactivity1()
         {
             if (stamina1_limit >= stamina1)
@@ -217,6 +316,9 @@ namespace Wars_to_characters
             }
         }
         //Метод бездействия первого персонажа(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Метод бездействия второго бойца
+        /// </summary>
         public static void inactivity2()
         {
             if (stamina2_limit >= stamina2)
@@ -226,7 +328,9 @@ namespace Wars_to_characters
             }
         }
 
-        //Ввод переменных первого персонажа(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Ввод переменных первого персонажа
+        /// </summary>
         public static void input_character1()
         {
 
@@ -280,7 +384,9 @@ namespace Wars_to_characters
 
 
         }
-        //Ввод переменных второго персонажа(ТИПА РАБОТАЕТ)
+        /// <summary>
+        /// Ввод переменных второго персонажа
+        /// </summary>
         public static void input_character2()
         {
             bool flagExcep;
@@ -333,6 +439,9 @@ namespace Wars_to_characters
 
         }
         //Логика боя
+        /// <summary>
+        /// Метод логики боя(Рандом)
+        /// </summary>
         public static void fight()
         {
             if (agility1 > agility2)
@@ -428,6 +537,9 @@ namespace Wars_to_characters
                 } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
             }
         }
+        /// <summary>
+        /// Метод завершения боя
+        /// </summary>
         public static void end()
         {
             Console.WriteLine("//////////////////////////////////////////////////////////////////////////////////////////");
@@ -449,6 +561,9 @@ namespace Wars_to_characters
             }
             repeat_game();
         }
+        /// <summary>
+        /// Метод статуса персонажей после раунда
+        /// </summary>
         public static void status()
         {
             if (life1 < 0)
@@ -467,6 +582,9 @@ namespace Wars_to_characters
                 Console.ReadKey();
             }
         }
+        /// <summary>
+        /// Метод режима игры(Ручной/Авто)
+        /// </summary>
         public static void game_mode()
         {
             bool flagExcep;
@@ -496,6 +614,9 @@ namespace Wars_to_characters
                 }
             } while (flagExcep);
         }
+        /// <summary>
+        /// Метод повтора игры
+        /// </summary>
         public static void repeat_game()
         {
             Console.WriteLine("Хотите повторить? нажмите 1 для повтора/ нажмите 0, для завершения");
@@ -537,6 +658,9 @@ namespace Wars_to_characters
                 repeat_game();
             }
         }
+        /// <summary>
+        /// Метод восстановления здоровья при блокировке
+        /// </summary>
         public static void global_block_repeat_life()
         {
             if (block_character1 == true || block_character2 == true)
@@ -545,6 +669,9 @@ namespace Wars_to_characters
                 life2 = life2_limit;
             }
         }
+        /// <summary>
+        /// Метод работы адаптивного режима
+        /// </summary>
         public static void adaptive_mode()
         {
             bool flagExcep;
@@ -581,6 +708,9 @@ namespace Wars_to_characters
             }
 
         }
+        /// <summary>
+        /// Метод тренировки бойцов перед боем
+        /// </summary>
         public static void warm_up_fight()
         {
             Console.WriteLine("Сейчас наши бойцы поиграют мышцами, для того что бы не получить травму(Тренировка)");
@@ -644,11 +774,34 @@ namespace Wars_to_characters
             Console.WriteLine("/////////////////////////////////////////////////////////");
             Console.ReadKey();
         }
+        /// <summary>
+        /// Метод поиска силы (адаптивный алгоритм)
+        /// </summary>
         public static void search_force_characters()
         {
+            int temp_search_force1=0;
+            int temp_search_force2=0;
+            int Counter = 0;
+            Counter++;
             search_force1 = life1_limit - life1;
             search_force2 = life2_limit - life2;
+            if (Counter > 2)
+            {
+                if (search_force1<temp_search_force1)
+                {
+                    search_force1 = temp_search_force1;
+                }
+                if (search_force2<temp_search_force2)
+                {
+                    search_force2 = temp_search_force2;
+                }
+            }
+
+
         }
+        /// <summary>
+        /// Метод адаптивного боя
+        /// </summary>
         public static void adaptive_fight()
         {
             warm_up_fight();
@@ -658,17 +811,50 @@ namespace Wars_to_characters
                 {
                     do
                     {
+                        life1_limit = life1;
+                        life2_limit = life2;
                         if (agility1>agility2)
                         {
-
+                            adaptive_hit1_hard();
+                            adaptive_hit2_cunning();
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
                         }
                         if (agility1<agility2)
                         {
-
+                            adaptive_hit2_cunning();
+                            adaptive_hit1_hard();
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
                         }
                         if (agility1==agility2)
                         {
-
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
                         }
                     } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
                 }
@@ -676,16 +862,51 @@ namespace Wars_to_characters
                 {
                     do
                     {
+                        life1_limit = life1;
+                        life2_limit = life2;
                         if (agility1>agility2)
                         {
-
+                            
+                            adaptive_hit1_cunning();
+                            adaptive_hit2_hard();
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
                         }
                         if (agility1<agility2)
                         {
-
+                            adaptive_hit2_cunning();
+                            adaptive_hit1_hard();
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
                         }
                         if (agility1==agility2)
                         {
+                            global_block_repeat_life();
+                            status();
+                            if (life1 == 0)
+                            {
+                                break;
+                            }
+                            if (life2 == 0)
+                            {
+                                break;
+                            }
 
                         }
                     } while (life1 >= 0 & life2 >= 0 || life1 == 0 || life2 == 0);
@@ -698,24 +919,34 @@ namespace Wars_to_characters
 
         }
         //В этой тактике персонаж должен любой ценой совершить удар
+        /// <summary>
+        /// Метод агресивного поведения первого бойца
+        /// </summary>
         public static void adaptive_hit1_hard()
         {
-            Event_backend1 = randint.Next(1, 2);
-            if (stamina1 <= 0.5)
+            block_character1 = false;
+            Event_backend1 = randint.Next(1, 3);
+            if (Event_backend1==1)
             {
-                inactivity1();
+                if (stamina1 <= 0.5)
+                {
+                    inactivity1();
+                    block_character1 = true;
+                }
+                else
+                {
+                    Console.WriteLine(name1 + " пинает в полную силу " + name2);
+                    life2 = life2 - force1;
+                    stamina1 = stamina1 - 1;
+                }
             }
-            else
-            {
-                Console.WriteLine(name1 + " пинает в полную силу " + name2);
-                life2 = life2 - force1;
-                stamina1 = stamina1 - 1;
-            }
+            
             if (Event_backend1==2)
             {
                 if (stamina1<=0)
                 {
                     inactivity1();
+                    block_character1 = true;
                 }
                 else
                 {
@@ -727,24 +958,34 @@ namespace Wars_to_characters
             }
         }
         //В этой тактике персонаж должен любой ценой совершить удар
+        /// <summary>
+        /// Метод агресивного поведения второго бойца
+        /// </summary>
         public static void adaptive_hit2_hard()
         {
-            Event_backend1 = randint.Next(1, 2);
-            if (stamina2 <= 0.5)
+            block_character2 = false;
+            Event_backend2 = randint.Next(1, 2);
+            if (Event_backend2==1)
             {
-                inactivity2();
+                if (stamina2 <= 0.5)
+                {
+                    inactivity2();
+                    block_character2 = true;
+                }
+                else
+                {
+                    Console.WriteLine(name2 + " пинает в полную силу " + name1);
+                    life1 = life1 - force2;
+                    stamina2 = stamina2 - 1;
+                }
             }
-            else
-            {
-                Console.WriteLine(name2 + " пинает в полную силу " + name1);
-                life1 = life1 - force2;
-                stamina2 = stamina2 - 1;
-            }
-            if (Event_backend1 == 2)
+            
+            if (Event_backend2 == 2)
             {
                 if (stamina2 <= 0)
                 {
                     inactivity2();
+                    block_character2 = true;
                 }
                 else
                 {
@@ -755,6 +996,98 @@ namespace Wars_to_characters
 
             }
         }
+        /// <summary>
+        /// Метод хитрого поведения первого бойца
+        /// </summary>
+        public static void adaptive_hit1_cunning()
+        {
+            Event_backend1 = randint.Next(1, 3);
+            if (block_character2==true)
+            {
+                //Атакует в полную силу
+                if (Event_backend1 == 1)
+                {
+                    if (stamina1 <= 0.5)
+                    {
+                        inactivity1();
+                    }
+                    else
+                    {
+                        Console.WriteLine(name1 + " пинает в полную силу " + name2);
+                        life2 = life2 - force1;
+                        stamina1 = stamina1 - 1;
+                    }
+
+                }
+                //Атакует в половину силы
+                if (Event_backend1 == 2)
+                {
+                    if (stamina1 <= 0)
+                    {
+                        inactivity1();
+                    }
+                    else
+                    {
+                        Console.WriteLine(name1 + " пинает ногами " + name2);
+                        life2 = life2 - (force1 / 2);
+                        stamina1 = stamina1 - (stamina_edit / 2);
+                    }
+                }
+            }
+            else
+            {
+                //Пока что пусть будет так
+                block1();
+            }
+        }
+        /// <summary>
+        /// Метод хитрого поведения второго бойца
+        /// </summary>
+        public static void adaptive_hit2_cunning()
+        {
+            Event_backend2 = randint.Next(1, 3);
+            if (block_character1==true)
+            {
+                //Атакует в полную силу
+                if (Event_backend2 == 1)
+                {
+                    if (stamina2 <= 0.5)
+                    {
+                        inactivity2();
+                    }
+                    else
+                    {
+                        Console.WriteLine(name2 + " даёт по полной по звездюлей " + name1);
+                        life1 = life1 - force2;
+                        stamina2 = stamina2 - stamina_edit;
+                    }
+
+                }
+                //Атакует в половину силы
+                if (Event_backend2 == 2)
+                {
+                    if (stamina2 <= 0)
+                    {
+                        inactivity2();
+                        block_character2 = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine(name2 + " даёт в половину силы урона " + name1);
+                        life1 = life1 - (force2 / 2);
+                        stamina2 = stamina2 - (stamina_edit / 2);
+                    }
+                }
+            }
+            else
+            {
+                //Пока пусть живёт тут
+                block2();
+            }
+        }
+        /// <summary>
+        /// Метод поведения первого бойца при тренировке
+        /// </summary>
         public static void warm_up_hit1()
         {
             Event_fronted1 = randint.Next(1, 3);
@@ -768,6 +1101,9 @@ namespace Wars_to_characters
                 
             }
         }
+        /// <summary>
+        /// Метод поведения второго бойца при тренировке
+        /// </summary>
         public static void warm_up_hit2()
         {
             Event_fronted2 = randint.Next(1, 3);
