@@ -7,6 +7,7 @@ namespace Wars_to_characters
 {
     class Program
     {
+        static int Counter = 0;
         //Рандом & нужные переменные
         /// <summary>
         /// Класс рандома
@@ -122,6 +123,14 @@ namespace Wars_to_characters
         /// Имя второго
         /// </summary>
         static string name2 = "null";
+        /// <summary>
+        /// Временная переменная для расчёта силы первого бойца
+        /// </summary>
+        static float temp_search_force1 = 0;
+        /// <summary>
+        /// Временная переменная для расчёта силы второго бойца
+        /// </summary>
+        static float temp_search_force2 = 0;
         //Сама программа
         public static void Main()
         {
@@ -775,18 +784,22 @@ namespace Wars_to_characters
             Console.ReadKey();
         }
         /// <summary>
-        /// Метод поиска силы (адаптивный алгоритм)
+        /// Метод поиска силы (адаптивный алгоритм)(Работает!!!!)
         /// </summary>
         public static void search_force_characters()
         {
-            int temp_search_force1=0;
-            int temp_search_force2=0;
-            int Counter = 0;
             Counter++;
-            search_force1 = life1_limit - life1;
-            search_force2 = life2_limit - life2;
+            if  (Counter==1)
+            {
+                search_force1 = life2_limit - life2;
+                search_force2 = life1_limit - life1;
+            }
+            
+            
             if (Counter > 2)
             {
+                temp_search_force1 = life2_limit - life2;
+                temp_search_force2 = life1_limit - life1;
                 if (search_force1<temp_search_force1)
                 {
                     search_force1 = temp_search_force1;
