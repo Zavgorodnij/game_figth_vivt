@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Wars_to_characters
 {
     class Program
@@ -37,6 +33,14 @@ namespace Wars_to_characters
         /// Переменная используемая для определения блокировки второго персонажа
         /// </summary>
         static bool block_character2;
+        /// <summary>
+        /// Тригер сигнализирующий об атаке первого персонажа
+        /// </summary>
+        static bool attack_character1;
+        /// <summary>
+        /// Тригер сигнализирующий об атаке второго персонажа
+        /// </summary>
+        static bool attack_character2;
         /// <summary>
         /// Переменная для рандома первого хода персонажа (Рандом)(Если выносливость одинаковая)
         /// </summary>
@@ -138,11 +142,11 @@ namespace Wars_to_characters
             input_character2();
             adaptive_mode();
             game_mode();
-            if (adaptiv_mode==1)
+            if (adaptiv_mode == 1)
             {
                 adaptive_fight();
             }
-            if (adaptiv_mode==0)
+            if (adaptiv_mode == 0)
             {
                 fight();
             }
@@ -158,7 +162,7 @@ namespace Wars_to_characters
             block_character1 = false;
             Event_fronted1 = randint.Next(1, 3);
             Event_backend1 = randint.Next(1, 3);
-            
+
             //Атакует общая ветка
             if (Event_fronted1 == 1)
             {
@@ -217,7 +221,7 @@ namespace Wars_to_characters
             {
                 inactivity1();
             }
-            
+
 
         }
 
@@ -230,7 +234,7 @@ namespace Wars_to_characters
             block_character2 = false;
             Event_fronted2 = randint.Next(1, 3);
             Event_backend2 = randint.Next(1, 3);
-            
+
             //Атакует общая ветка
             if (Event_fronted2 == 1)
             {
@@ -299,7 +303,7 @@ namespace Wars_to_characters
             block_character1 = true;
             stamina1 = stamina1 - (stamina_edit / 2);
             Console.WriteLine(name1 + " блокирует удар");
-            
+
         }
         //Метод блокировки второго бойца(ТИПА РАБОТАЕТ)
         /// <summary>
@@ -362,7 +366,7 @@ namespace Wars_to_characters
                     if (force1 <= 0 || agility1 <= 0 || stamina1 <= 0) throw new FormatException("Введенны не корректные данные");
                     stamina1_limit = stamina1;
                 }
-                catch(System.OverflowException)
+                catch (System.OverflowException)
                 {
                     Console.WriteLine("Ошибка:введено слишком большое число");
                     flagExcep = true;
@@ -479,7 +483,6 @@ namespace Wars_to_characters
             //Если второй ловчее первого, то
             if (agility1 < agility2)
             {
-                int mass = 0;
                 Console.WriteLine("Первый удар наносит второй персонаж!");
                 do
                 {
@@ -611,7 +614,7 @@ namespace Wars_to_characters
                     Console.WriteLine("Ошибка:введено слишком большое число");
                     flagExcep = true;
                 }
-                catch(System.ArgumentNullException e)
+                catch (System.ArgumentNullException e)
                 {
                     Console.WriteLine("Ошибка");
                     flagExcep = true;
@@ -706,11 +709,11 @@ namespace Wars_to_characters
                 }
             } while (flagExcep);
             {
-                if (adaptiv_mode==1)
+                if (adaptiv_mode == 1)
                 {
                     Console.WriteLine("Адаптивный режим включен!");
                 }
-                if (adaptiv_mode==0)
+                if (adaptiv_mode == 0)
                 {
                     Console.WriteLine("Адаптивный режим не включен, бой расчитывается через рандомные методы");
                 }
@@ -728,7 +731,7 @@ namespace Wars_to_characters
             do
             {
                 round++;
-                Console.WriteLine("Раунд="+round);
+                Console.WriteLine("Раунд=" + round);
                 if (Event_figth <= 50)
                 {
                     life1_limit = life1;
@@ -745,7 +748,7 @@ namespace Wars_to_characters
                     {
                         break;
                     }
-                    if (round==5)
+                    if (round == 5)
                     {
                         break;
                     }
@@ -766,7 +769,7 @@ namespace Wars_to_characters
                     {
                         break;
                     }
-                    if(round==5)
+                    if (round == 5)
                     {
                         break;
                     }
@@ -778,7 +781,7 @@ namespace Wars_to_characters
             stamina2 = stamina2_limit;
             life1 = 50;
             life2 = 50;
-            Console.WriteLine("Сила "+name1+"=" + search_force1 + " Сила "+name2+"=" + search_force2);
+            Console.WriteLine("Сила " + name1 + "=" + search_force1 + " Сила " + name2 + "=" + search_force2);
             Console.WriteLine("Тренировка закончилась,сейчас начнётся Мясо");
             Console.WriteLine("/////////////////////////////////////////////////////////");
             Console.ReadKey();
@@ -789,22 +792,22 @@ namespace Wars_to_characters
         public static void search_force_characters()
         {
             Counter++;
-            if  (Counter==1)
+            if (Counter == 1)
             {
                 search_force1 = life2_limit - life2;
                 search_force2 = life1_limit - life1;
             }
-            
-            
+
+
             if (Counter > 2)
             {
                 temp_search_force1 = life2_limit - life2;
                 temp_search_force2 = life1_limit - life1;
-                if (search_force1<temp_search_force1)
+                if (search_force1 < temp_search_force1)
                 {
                     search_force1 = temp_search_force1;
                 }
-                if (search_force2<temp_search_force2)
+                if (search_force2 < temp_search_force2)
                 {
                     search_force2 = temp_search_force2;
                 }
@@ -826,7 +829,7 @@ namespace Wars_to_characters
                     {
                         life1_limit = life1;
                         life2_limit = life2;
-                        if (agility1>agility2)
+                        if (agility1 > agility2)
                         {
                             adaptive_hit1_hard();
                             adaptive_hit2_cunning();
@@ -841,7 +844,7 @@ namespace Wars_to_characters
                                 break;
                             }
                         }
-                        if (agility1<agility2)
+                        if (agility1 < agility2)
                         {
                             adaptive_hit2_cunning();
                             adaptive_hit1_hard();
@@ -856,10 +859,29 @@ namespace Wars_to_characters
                                 break;
                             }
                         }
-                        if (agility1==agility2)
+                        if (agility1 == agility2)
                         {
+                            Event_figth = randint.Next(1, 3);
+                            Console.WriteLine("Великий рандом считае кто ходит первый");
+                            if (Event_figth==1)
+                            {
+                                adaptive_hit1_hard();
+                                adaptive_hit2_cunning();
+                            }
+                            if (Event_figth==2)
+                            {
+                                adaptive_hit2_cunning();
+                                adaptive_hit1_hard();
+                            }
+                            if(Event_figth==3)
+                            {
+                                adaptive_hit1_hard();
+                                adaptive_hit2_cunning();
+                            }
+
                             global_block_repeat_life();
                             status();
+
                             if (life1 == 0)
                             {
                                 break;
@@ -877,9 +899,9 @@ namespace Wars_to_characters
                     {
                         life1_limit = life1;
                         life2_limit = life2;
-                        if (agility1>agility2)
+                        if (agility1 > agility2)
                         {
-                            
+
                             adaptive_hit1_cunning();
                             adaptive_hit2_hard();
                             global_block_repeat_life();
@@ -893,7 +915,7 @@ namespace Wars_to_characters
                                 break;
                             }
                         }
-                        if (agility1<agility2)
+                        if (agility1 < agility2)
                         {
                             adaptive_hit2_cunning();
                             adaptive_hit1_hard();
@@ -908,7 +930,7 @@ namespace Wars_to_characters
                                 break;
                             }
                         }
-                        if (agility1==agility2)
+                        if (agility1 == agility2)
                         {
                             global_block_repeat_life();
                             status();
@@ -938,164 +960,81 @@ namespace Wars_to_characters
         public static void adaptive_hit1_hard()
         {
             block_character1 = false;
-            Event_backend1 = randint.Next(1, 3);
-            if (Event_backend1==1)
+            attack_character1 = false;
+            if (stamina1 <= 0.5)
             {
-                if (stamina1 <= 0.5)
-                {
-                    inactivity1();
-                    block_character1 = true;
-                }
-                else
-                {
-                    Console.WriteLine(name1 + " пинает в полную силу " + name2);
-                    life2 = life2 - force1;
-                    stamina1 = stamina1 - 1;
-                }
+                inactivity1();
+                attack_character1 = false;
             }
-            
-            if (Event_backend1==2)
+            else
             {
-                if (stamina1<=0)
-                {
-                    inactivity1();
-                    block_character1 = true;
-                }
-                else
-                {
-                    Console.WriteLine(name1 + " пинает ногами " + name2);
-                    life2 = life2 - (force1 / 2);
-                    stamina1 = stamina1 - (stamina_edit / 2);
-                }
-                
+                Console.WriteLine(name1 + " пинает в полную силу " + name2);
+                life2 = life2 - force1;
+                stamina1 = stamina1 - 1;
+                attack_character1 = true;
+            }
+            if (stamina1 >= 0.5 & attack_character2 == true)
+            {
+                block1();
+                attack_character1 = false;
             }
         }
-        //В этой тактике персонаж должен любой ценой совершить удар
-        /// <summary>
-        /// Метод агресивного поведения второго бойца
-        /// </summary>
+        
         public static void adaptive_hit2_hard()
         {
             block_character2 = false;
-            Event_backend2 = randint.Next(1, 2);
-            if (Event_backend2==1)
+            attack_character2 = false;
+            if (stamina2 <= 0.5)
             {
-                if (stamina2 <= 0.5)
-                {
-                    inactivity2();
-                    block_character2 = true;
-                }
-                else
-                {
-                    Console.WriteLine(name2 + " пинает в полную силу " + name1);
-                    life1 = life1 - force2;
-                    stamina2 = stamina2 - 1;
-                }
+                inactivity2();
+                attack_character2 = false;
             }
-            
-            if (Event_backend2 == 2)
+            else
             {
-                if (stamina2 <= 0)
-                {
-                    inactivity2();
-                    block_character2 = true;
-                }
-                else
-                {
-                    Console.WriteLine(name2 + " пинает ногами " + name1);
-                    life1 = life1 - (force2 / 2);
-                    stamina2 = stamina2 - (stamina_edit / 2);
-                }
+                Console.WriteLine(name2 + " даёт по полной по звездюлей " + name1);
+                life1 = life1 - force2;
+                stamina2 = stamina2 - stamina_edit;
+                attack_character2 = true;
+            }
+            if (stamina2 >= 0.5 & attack_character1 == true)
+            {
+                block2();
+                attack_character2 = false;
+            }
 
-            }
         }
-        /// <summary>
-        /// Метод хитрого поведения первого бойца
-        /// </summary>
         public static void adaptive_hit1_cunning()
         {
-            Event_backend1 = randint.Next(1, 3);
-            if (block_character2==true)
+            attack_character1 = false;
+            block_character1 = false;
+            if (stamina1 >= 0.5 & attack_character2==true)
             {
-                //Атакует в полную силу
-                if (Event_backend1 == 1)
-                {
-                    if (stamina1 <= 0.5)
-                    {
-                        inactivity1();
-                    }
-                    else
-                    {
-                        Console.WriteLine(name1 + " пинает в полную силу " + name2);
-                        life2 = life2 - force1;
-                        stamina1 = stamina1 - 1;
-                    }
-
-                }
-                //Атакует в половину силы
-                if (Event_backend1 == 2)
-                {
-                    if (stamina1 <= 0)
-                    {
-                        inactivity1();
-                    }
-                    else
-                    {
-                        Console.WriteLine(name1 + " пинает ногами " + name2);
-                        life2 = life2 - (force1 / 2);
-                        stamina1 = stamina1 - (stamina_edit / 2);
-                    }
-                }
+                block2();
+                attack_character1 = false;
             }
-            else
+            if(stamina1 >= 1 & attack_character2 == false)
             {
-                //Пока что пусть будет так
-                block1();
+                Console.WriteLine(name1 + " пинает в полную силу " + name2);
+                life2 = life2 - force1;
+                stamina1 = stamina1 - 1;
+                attack_character1 = true;
             }
         }
-        /// <summary>
-        /// Метод хитрого поведения второго бойца
-        /// </summary>
         public static void adaptive_hit2_cunning()
         {
-            Event_backend2 = randint.Next(1, 3);
-            if (block_character1==true)
+            attack_character2 = false;
+            block_character2 = false;
+            if (stamina2 >= 0.5 & attack_character1 == true)
             {
-                //Атакует в полную силу
-                if (Event_backend2 == 1)
-                {
-                    if (stamina2 <= 0.5)
-                    {
-                        inactivity2();
-                    }
-                    else
-                    {
-                        Console.WriteLine(name2 + " даёт по полной по звездюлей " + name1);
-                        life1 = life1 - force2;
-                        stamina2 = stamina2 - stamina_edit;
-                    }
-
-                }
-                //Атакует в половину силы
-                if (Event_backend2 == 2)
-                {
-                    if (stamina2 <= 0)
-                    {
-                        inactivity2();
-                        block_character2 = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(name2 + " даёт в половину силы урона " + name1);
-                        life1 = life1 - (force2 / 2);
-                        stamina2 = stamina2 - (stamina_edit / 2);
-                    }
-                }
-            }
-            else
-            {
-                //Пока пусть живёт тут
                 block2();
+                attack_character2 = false;
+            }
+            if (stamina2 >= 1 & attack_character1 == false)
+            {
+                Console.WriteLine(name2 + " пинает в полную силу " + name1);
+                life1 = life1 - force2;
+                stamina2 = stamina2 - 1;
+                attack_character2 = true;
             }
         }
         /// <summary>
@@ -1104,14 +1043,14 @@ namespace Wars_to_characters
         public static void warm_up_hit1()
         {
             Event_fronted1 = randint.Next(1, 3);
-            if (Event_fronted1==1)
+            if (Event_fronted1 == 1)
             {
                 life2 = life2 - force1;
             }
-            if (Event_fronted1==2)
+            if (Event_fronted1 == 2)
             {
                 life2 = life2 - (force1 / 2);
-                
+
             }
         }
         /// <summary>
@@ -1120,16 +1059,15 @@ namespace Wars_to_characters
         public static void warm_up_hit2()
         {
             Event_fronted2 = randint.Next(1, 3);
-            if (Event_fronted2==1)
+            if (Event_fronted2 == 1)
             {
                 life1 = life1 - force2;
             }
-            if (Event_fronted2==2)
+            if (Event_fronted2 == 2)
             {
                 life1 = life1 - (force2 / 2);
             }
         }
-        //Это типа действия первого бойца в адаптивном режиме
     }
 
 }
